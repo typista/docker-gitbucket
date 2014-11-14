@@ -10,8 +10,8 @@ else
 	DIR=`dirname $FULLPATH`
 	REPO=`basename $DIR`
 	IMAGE=$USER/$REPO
-	if [ "$2" != "" ];then
-    		IMAGE=$IMAGE:$1
+	if [ "$3" != "" ];then
+    		IMAGE=$IMAGE:$3
 	fi
 	docker run -d --privileged --restart=always --name="$__FQDN__" --hostname="$__HOSTNAME__" \
 		-p $__PORT__:8080 \
