@@ -12,7 +12,12 @@ else
 	REPO=`echo $REPO | sed -r "s/docker\-//g"`
 	IMAGE=$USER/$REPO
 	if [ "$3" != "" ];then
-    		IMAGE=$IMAGE:$3
+		IMAGE=$IMAGE:$3
+	else
+		VERSION=`docker images | grep "$IMAGE " | sort | tail -1 | awk '{print $2}'`
+		if [ "$VERSION" != "" ];then
+			IMAGE=$IMAGE:$VERSION
+		fi
 	fi
 	docker run -d --privileged --restart=always --name="$__FQDN__" --hostname="$__HOSTNAME__" \
 		-p $__PORT__:8080 \
